@@ -10,7 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.location.Address;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
 
+
 public class MainActivity extends Activity {
 
 
@@ -30,10 +34,16 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        Button startButton = (Button) findViewById(R.id.start);
+        ImageButton startButton = (ImageButton) findViewById(R.id.start);
         startButton.setOnClickListener(startButtonListener);
 
+        //SurfaceView background = (SurfaceView) findViewById(R.id.backgroundView);
+
+        //GifRun gifRun = new GifRun();
+        //gifRun.LoadGiff(background, this, R.drawable.background);
 
     }
 
@@ -44,6 +54,8 @@ public class MainActivity extends Activity {
         public void onClick(View view) {
 
             Intent intent = new Intent(MainActivity.this, StreetMode.class);
+            intent.putExtra("score", (float) 0);
+            intent.putExtra("round", 0);
             startActivity(intent);
 
         }

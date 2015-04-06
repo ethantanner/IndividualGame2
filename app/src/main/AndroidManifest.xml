@@ -20,7 +20,11 @@
         <activity android:name=".MapMode"
             android:label="Map Mode"/>
         <activity android:name=".StreetMode"
-            android:label="Map Mode"/>
+            android:label="Street Mode"/>
+        <activity android:name=".ScoringScreen"
+            android:label="Scoring Mode"/>
+        <activity android:name=".GameOver"
+            android:label="Game Over Mode"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
