@@ -49,7 +49,7 @@ public class GameOver extends Activity implements PopupMenu.OnMenuItemClickListe
         highScorePref = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
         highScoreEditor = highScorePref.edit();
 
-        int highScore = highScorePref.getInt("highscore", 0);
+        int highScore = highScorePref.getInt("highscore", 1000000000);
 
         int scoreInt = Integer.parseInt(String.format("%.0f", score));
         Log.w("scoreInt", Integer.toString(scoreInt));
@@ -68,7 +68,11 @@ public class GameOver extends Activity implements PopupMenu.OnMenuItemClickListe
         TextView bestScore = (TextView) findViewById(R.id.bestScore);
 
         gameOverScore.setText("Total Score: " + String.format("%.0f", score) + " km");
-        bestScore.setText("Best Score: "+ Integer.toString(highScorePref.getInt("highscore", 1000000000)));
+        bestScore.setText("Best Score: "+ Integer.toString(highScorePref.getInt("highscore", -1000)) + " km");
+
+
+        SharedPreferences locations = this.getSharedPreferences("locations", Context.MODE_PRIVATE);
+        Log.w("Locations SharedPreferences", locations.getAll().toString());
 
     }
 
@@ -85,18 +89,6 @@ public class GameOver extends Activity implements PopupMenu.OnMenuItemClickListe
 
         }
     };
-    public View.OnClickListener resetButtonListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View view) {
-
-            highScoreEditor.putInt("highscore", 1000000000);
-            highScoreEditor.commit();
-
-        }
-    };
-
-
 
 
     @Override
@@ -123,6 +115,7 @@ public class GameOver extends Activity implements PopupMenu.OnMenuItemClickListe
 
     public void popUpOptions(View v) {
         PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.actions, popup.getMenu());
         popup.show();
